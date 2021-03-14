@@ -3,6 +3,7 @@
     <div class="card mt-3">
       <div class="card-header">Clientes</div>
       <div class="card-body">
+        <NuxtLink class="btn btn-primary" to="/clientes/create">Criar</NuxtLink>
         <div class="table-responsive">
           <table class="table table-striped table-hover">
             <thead>
