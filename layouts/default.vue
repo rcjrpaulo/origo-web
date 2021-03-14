@@ -6,8 +6,8 @@
         <div id="navbarSupportedContent" class="collapse navbar-collapse">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li v-if="$auth.loggedIn" class="nav-item">
-              <span class="nav-link text-primary"
-                >Olá, {{ $auth.user.name }}</span
+              <span class="nav-link"
+                ><b>Olá, {{ $auth.user.name }}</b></span
               >
             </li>
             <li class="nav-item">
