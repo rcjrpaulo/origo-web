@@ -1,10 +1,48 @@
 <template>
   <div class="container">
-    <h1>Login</h1>
+    <div class="card mt-3">
+      <div class="card-header">Login</div>
+      <div class="card-body">
+        <form action="#">
+          <p class="card-text">Entre com suas credenciais</p>
+
+          <input v-model="email" type="text" class="form-control" />
+          <input v-model="password" type="password" class="form-control" />
+
+          <span class="btn btn-primary mt-3" @click="login">Fazer Login</span>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 export default {
   auth: false,
+  data() {
+    return {
+      email: 'admin@admin.com',
+      password: 'admin',
+    }
+  },
+  methods: {
+    async login() {
+      const data = {
+        email: this.email,
+        password: this.password,
+      }
+
+      try {
+        await this.$auth.loginWith('local', {
+          data,
+        })
+
+        this.$router.push('/clientes')
+      } catch (err) {
+        if (err.response.data.email[0]) {
+          alert(err.response.data.email[0])
+        }
+      }
+    },
+  },
 }
 </script>

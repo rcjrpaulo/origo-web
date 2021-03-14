@@ -53,12 +53,32 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: process.env.BASE_URL || 'http://origo-api.test/api/v1',
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
   router: {
     middleware: ['auth'],
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: {
+            url: '/auth/user',
+            method: 'get',
+            propertyName: 'user',
+          },
+        },
+        // tokenRequired: true,
+        tokenType: 'Bearer',
+      },
+    },
   },
 }
