@@ -10,15 +10,30 @@
             </li>
 
             <li>
-              <NuxtLink class="nav-link" to="/login">Login</NuxtLink>
+              <NuxtLink v-if="!$auth.loggedIn" class="nav-link" to="/login"
+                >Login</NuxtLink
+              >
             </li>
 
             <li>
-              <NuxtLink class="nav-link" to="/register">Cadastrar</NuxtLink>
+              <a
+                v-if="$auth.loggedIn"
+                href="javascript:void(0)"
+                class="nav-link"
+                >Logout</a
+              >
             </li>
 
             <li>
-              <NuxtLink class="nav-link" to="/clientes">Clientes</NuxtLink>
+              <NuxtLink v-if="!$auth.loggedIn" class="nav-link" to="/register"
+                >Cadastrar</NuxtLink
+              >
+            </li>
+
+            <li>
+              <NuxtLink v-if="$auth.loggedIn" class="nav-link" to="/clientes"
+                >Clientes</NuxtLink
+              >
             </li>
           </ul>
         </div>
