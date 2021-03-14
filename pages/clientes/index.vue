@@ -24,10 +24,16 @@
                   <NuxtLink
                     class="btn btn-primary"
                     :to="`/clientes/${cliente.id}/show`"
-                    >Ver</NuxtLink
                   >
+                    Ver
+                  </NuxtLink>
+                  <NuxtLink
+                    class="btn btn-warning"
+                    :to="`/clientes/${cliente.id}/edit`"
+                  >
+                    Editar
+                  </NuxtLink>
 
-                  <span class="btn btn-warning">Editar</span>
                   <span class="btn btn-danger">Deletar</span>
                 </td>
               </tr>
