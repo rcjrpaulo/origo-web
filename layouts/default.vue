@@ -53,9 +53,9 @@
 <script>
 export default {
   methods: {
-    logout(auth) {
-      auth.logout()
-      this.$router.push('/login')
+    async logout(auth) {
+      await auth.logout()
+      location.reload()
     },
   },
 }

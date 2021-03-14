@@ -24,6 +24,7 @@ export default {
       password: 'admin',
     }
   },
+  mounted() {},
   methods: {
     async login() {
       const data = {
@@ -36,7 +37,7 @@ export default {
           data,
         })
 
-        this.$router.push('/clientes')
+        location.reload()
       } catch (err) {
         if (err.response.data.email[0]) {
           alert(err.response.data.email[0])
