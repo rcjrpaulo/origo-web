@@ -27,6 +27,17 @@
               </tr>
             </tbody>
           </table>
+
+          <div>
+            <span
+              v-for="pageNumber in totalPages"
+              :key="pageNumber"
+              class="btn"
+              :class="pageNumber == page ? 'btn-primary' : 'btn-default'"
+              @click="updatePage(pageNumber)"
+              >{{ pageNumber }}</span
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -38,6 +49,7 @@ export default {
     return {
       clientes: [],
       page: 1,
+      totalPages: 1,
       password: 'admin',
     }
   },
@@ -48,6 +60,11 @@ export default {
     async fetchClientes() {
       const response = await this.$axios.get(`/clientes?page=${this.page}`)
       this.clientes = response.data.data
+      this.totalPages = response.data.meta.last_page
+    },
+    async updatePage(selectedPage) {
+      this.page = selectedPage
+      await this.fetchClientes()
     },
   },
 }
