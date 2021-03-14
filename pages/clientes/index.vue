@@ -21,7 +21,12 @@
                 <td>{{ cliente.nome }}</td>
                 <td>{{ cliente.email }}</td>
                 <td>
-                  <span class="btn btn-primary">Ver</span>
+                  <NuxtLink
+                    class="btn btn-primary"
+                    :to="`/clientes/${cliente.id}/show`"
+                    >Ver</NuxtLink
+                  >
+
                   <span class="btn btn-warning">Editar</span>
                   <span class="btn btn-danger">Deletar</span>
                 </td>
