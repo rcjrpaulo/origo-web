@@ -3,13 +3,15 @@
     <div class="card mt-3">
       <div class="card-header">Login</div>
       <div class="card-body">
-        <form action="#">
+        <form action="#" @submit="login">
           <p class="card-text">Entre com suas credenciais</p>
 
           <input v-model="email" type="text" class="form-control" />
           <input v-model="password" type="password" class="form-control" />
 
-          <span class="btn btn-primary mt-3" @click="login">Fazer Login</span>
+          <button class="btn btn-primary mt-3" type="submit">
+            Fazer Login
+          </button>
         </form>
       </div>
     </div>
@@ -17,14 +19,13 @@
 </template>
 <script>
 export default {
-  auth: false,
+  auth: 'guest',
   data() {
     return {
       email: 'admin@admin.com',
       password: 'admin',
     }
   },
-  mounted() {},
   methods: {
     async login() {
       const data = {
