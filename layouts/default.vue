@@ -1,5 +1,30 @@
 <template>
   <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">origo-web</a>
+        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <NuxtLink class="nav-link" to="/">Home</NuxtLink>
+            </li>
+
+            <li>
+              <NuxtLink class="nav-link" to="/login">Login</NuxtLink>
+            </li>
+
+            <li>
+              <NuxtLink class="nav-link" to="/register">Cadastrar</NuxtLink>
+            </li>
+
+            <li>
+              <NuxtLink class="nav-link" to="/clientes">Clientes</NuxtLink>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <Nuxt />
   </div>
 </template>

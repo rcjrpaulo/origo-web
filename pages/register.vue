@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Login</h1>
+    <h1>Novo Cadastro</h1>
   </div>
 </template>
 <script>
