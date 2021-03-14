@@ -106,7 +106,6 @@ export default {
         const response = await this.$axios.get(
           `/clientes/${this.$route.params.id}`
         )
-        console.log(response.data.data)
 
         this.cliente = response.data.data
       } catch (err) {

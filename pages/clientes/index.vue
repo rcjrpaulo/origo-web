@@ -34,7 +34,9 @@
                     Editar
                   </NuxtLink>
 
-                  <span class="btn btn-danger">Deletar</span>
+                  <span class="btn btn-danger" @click="deleteUser(cliente.id)">
+                    Deletar
+                  </span>
                 </td>
               </tr>
             </tbody>
@@ -77,6 +79,14 @@ export default {
     async updatePage(selectedPage) {
       this.page = selectedPage
       await this.fetchClientes()
+    },
+    async deleteUser(id) {
+      try {
+        await this.$axios.delete(`/clientes/${id}`)
+        await this.fetchClientes()
+      } catch (err) {
+        console.log(err)
+      }
     },
   },
 }
