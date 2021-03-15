@@ -63,7 +63,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: process.env.BASE_URL || 'http://origo-api.test/api/v1',
+    baseURL: process.env.BASE_URL || 'http://127.0.0.1:8000/api/v1/api/v1',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
