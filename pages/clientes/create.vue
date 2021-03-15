@@ -77,16 +77,14 @@
         </div>
         <div class="my-2">
           <label for="planos">Planos</label>
-          <select
+          <multiselect
             id="planos"
             v-model="form.planos"
-            class="form-control"
-            multiple
-          >
-            <option v-for="plano in planos" :key="plano.id" :value="plano.id">
-              {{ plano.nome }}
-            </option>
-          </select>
+            track-by="nome"
+            label="nome"
+            :multiple="true"
+            :options="planos"
+          ></multiselect>
         </div>
 
         <div class="my-2">
@@ -127,29 +125,58 @@ export default {
         const estadoSelecionadoArray = this.estados.filter(
           (estado) => this.estadoSelecionado === estado.id
         )
-        this.form.estado = estadoSelecionadoArray[0].nome
+        if (estadoSelecionadoArray[0]) {
+          this.form.estado = estadoSelecionadoArray[0].nome
+        }
 
-        await this.$axios.post(`/clientes`, this.form)
+        const planos = [...this.form.planos]
+        const planosMappedArray = planos.map((plano) => plano.id)
+
+        const createData = { ...this.form, planos: planosMappedArray }
+
+        await this.$axios.post(`/clientes`, createData)
 
         this.$router.push('/clientes')
       } catch (err) {
-        console.log(err.response.data.errors)
+        if (err.response.data.errors && err.response.data.errors.length) {
+          for (const error of err.response.data.errors) {
+            this.$swal.fire('Erro !', error, 'error')
+          }
+        }
       }
     },
     async fetchPlanos() {
-      const response = await this.$axios.get('/planos')
-      this.planos = response.data.data
+      try {
+        const response = await this.$axios.get('/planos')
+        this.planos = response.data.data
+      } catch (err) {
+        if (err.response.data.errors && err.response.data.errors.length) {
+          for (const error of err.response.data.errors) {
+            this.$swal.fire('Erro !', error, 'error')
+          }
+        }
+      }
     },
     async fetchEstados() {
-      this.estados = await this.$axios.$get(
-        'https://servicodados.ibge.gov.br/api/v1/localidades/estados'
-      )
+      try {
+        this.estados = await this.$axios.$get(
+          'https://servicodados.ibge.gov.br/api/v1/localidades/estados'
+        )
+      } catch (error) {
+        this.$swal.fire('Erro !', error, 'error')
+      }
     },
     async fetchCidades() {
-      this.cidades = await this.$axios.$get(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${this.estadoSelecionado}/municipios`
-      )
+      try {
+        this.cidades = await this.$axios.$get(
+          `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${this.estadoSelecionado}/municipios`
+        )
+      } catch (error) {
+        this.$swal.fire('Erro !', error, 'error')
+      }
     },
   },
 }
 </script>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
