@@ -84,17 +84,38 @@ export default {
       this.page = selectedPage
       await this.fetchClientes()
     },
-    async deleteUser(id) {
-      try {
-        await this.$axios.delete(`/clientes/${id}`)
-        await this.fetchClientes()
-      } catch (err) {
-        if (err.response.data.errors && err.response.data.errors.length) {
-          for (const error of err.response.data.errors) {
-            this.$swal.fire('Erro !', error, 'error')
+    deleteUser(id) {
+      this.$swal
+        .fire({
+          title: 'Tem certeza ?',
+          text: 'Você está preste a deletar um cliente',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sim, deletar !',
+          cancelButtonText: 'Não',
+        })
+        .then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              await this.$axios.delete(`/clientes/${id}`)
+              await this.fetchClientes()
+
+              this.$swal.fire(
+                'Sucesso !',
+                'O cliente foi deletado com sucesso !',
+                'success'
+              )
+            } catch (err) {
+              if (err.response.data.errors && err.response.data.errors.length) {
+                for (const error of err.response.data.errors) {
+                  this.$swal.fire('Erro !', error, 'error')
+                }
+              }
+            }
           }
-        }
-      }
+        })
     },
   },
 }
