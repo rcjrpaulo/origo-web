@@ -3,7 +3,7 @@
     <div class="card mt-3">
       <div class="card-header">Login</div>
       <div class="card-body">
-        <form action="#" @submit="login">
+        <form action="#" @submit.prevent="login">
           <p class="card-text">Entre com suas credenciais</p>
 
           <input v-model="email" type="text" class="form-control" />
@@ -40,8 +40,10 @@ export default {
 
         this.$router.push('/clientes')
       } catch (err) {
-        if (err.response.data.email[0]) {
-          alert(err.response.data.email[0])
+        if (err.response.data.errors && err.response.data.errors.length) {
+          for (const error of err.response.data.errors) {
+            this.$swal.fire('Erro !', error, 'error')
+          }
         }
       }
     },
