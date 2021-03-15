@@ -45,13 +45,13 @@ export default {
           data,
         })
 
-        location.reload()
+        this.$router.push('/clientes')
       } catch (err) {
-        if (err.response.data.email[0]) {
-          alert(err.response.data.email[0])
+        if (err.response.data.errors && err.response.data.errors.length) {
+          for (const error of err.response.data.errors) {
+            this.$swal.fire('Erro !', error, 'error')
+          }
         }
-
-        console.log(err.response.data)
       }
     },
   },
