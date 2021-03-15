@@ -75,18 +75,16 @@
             class="form-control"
           />
         </div>
-        <div v-if="cliente.planosSelect" class="my-2">
+        <div class="my-2">
           <label for="planos">Planos</label>
-          <select
+          <multiselect
             id="planos"
-            v-model="cliente.planosSelect"
-            class="form-control"
-            multiple
-          >
-            <option v-for="plano in planos" :key="plano.id" :value="plano.id">
-              {{ plano.nome }}
-            </option>
-          </select>
+            v-model="cliente.planos"
+            track-by="nome"
+            label="nome"
+            :multiple="true"
+            :options="planos"
+          ></multiselect>
         </div>
 
         <div class="my-2">
@@ -120,9 +118,18 @@ export default {
           (estado) => this.estadoSelecionado === estado.id
         )
         this.cliente.estado = estadoSelecionadoArray[0].nome
-        this.cliente.planos = this.cliente.planosSelect
 
-        await this.$axios.put(`/clientes/${this.cliente.id}`, this.cliente)
+        const planos = [...this.cliente.planos]
+        const planosMappedArray = planos.map((plano) => plano.id)
+
+        const updateData = { ...this.cliente, planos: planosMappedArray }
+
+        await this.$axios.put(`/clientes/${this.cliente.id}`, updateData)
+        this.$swal.fire(
+          'Sucesso !',
+          'Cliente atualizado com sucesso !',
+          'success'
+        )
 
         this.$router.push('/clientes')
       } catch (err) {
@@ -140,8 +147,6 @@ export default {
         )
 
         this.cliente = response.data.data
-
-        this.cliente.planosSelect = this.cliente.planos.map((plano) => plano.id)
 
         this.fetchEstados()
       } catch (error) {
@@ -172,11 +177,7 @@ export default {
         )
         this.estadoSelecionado = estadoSelecionado[0].id
       } catch (error) {
-        if (err.response.data.errors && err.response.data.errors.length) {
-          for (const error of err.response.data.errors) {
-            this.$swal.fire('Erro !', error, 'error')
-          }
-        }
+        this.$swal.fire('Erro !', error, 'error')
       }
 
       this.fetchCidades()

@@ -136,6 +136,8 @@ export default {
 
         await this.$axios.post(`/clientes`, createData)
 
+        this.$swal.fire('Sucesso !', 'Cliente criado com sucesso !', 'success')
+
         this.$router.push('/clientes')
       } catch (err) {
         if (err.response.data.errors && err.response.data.errors.length) {
