@@ -66,21 +66,15 @@
         </div>
         <div class="my-2">
           <label for="planos">Planos</label>
-          <select
+          <multiselect
             id="planos"
             v-model="cliente.planos"
-            class="form-control"
-            multiple
-          >
-            <option
-              v-for="plano in cliente.planos"
-              :key="plano.id"
-              disabled="disabled"
-              :value="plano.id"
-            >
-              {{ plano.nome }}
-            </option>
-          </select>
+            disabled="disabled"
+            track-by="nome"
+            label="nome"
+            :multiple="true"
+            :options="planos"
+          ></multiselect>
         </div>
 
         <div class="my-2">
@@ -96,10 +90,12 @@ export default {
   data() {
     return {
       cliente: null,
+      planos: [],
     }
   },
   mounted() {
     this.fetchCliente()
+    this.fetchPlanos()
   },
   methods: {
     async fetchCliente() {
@@ -109,6 +105,18 @@ export default {
         )
 
         this.cliente = response.data.data
+      } catch (err) {
+        if (err.response.data.errors && err.response.data.errors.length) {
+          for (const error of err.response.data.errors) {
+            this.$swal.fire('Erro !', error, 'error')
+          }
+        }
+      }
+    },
+    async fetchPlanos() {
+      try {
+        const response = await this.$axios.get('/planos')
+        this.planos = response.data.data
       } catch (err) {
         if (err.response.data.errors && err.response.data.errors.length) {
           for (const error of err.response.data.errors) {
