@@ -34,7 +34,11 @@
                     Editar
                   </NuxtLink>
 
-                  <span class="btn btn-danger" @click="deleteUser(cliente.id)">
+                  <span
+                    v-if="cliente.can_be_deleted"
+                    class="btn btn-danger"
+                    @click="deleteUser(cliente.id)"
+                  >
                     Deletar
                   </span>
                 </td>
