@@ -26,6 +26,7 @@
           <input
             id="telefone"
             v-model="cliente.telefone"
+            v-mask="'(##) #########'"
             type="text"
             class="form-control"
           />
@@ -125,7 +126,7 @@ export default {
 
         this.$router.push('/clientes')
       } catch (err) {
-        console.log(err)
+        console.log(err.response.data.errors)
       }
     },
     async fetchCliente() {

@@ -28,6 +28,7 @@
           <input
             id="telefone"
             v-model="cliente.telefone"
+            v-mask="'(##) #########'"
             disabled="disabled"
             type="text"
             class="form-control"
@@ -109,14 +110,7 @@ export default {
 
         this.cliente = response.data.data
       } catch (err) {
-        if (Array.isArray(Object.keys(err.response.data))) {
-          for (const chave of Object.keys(err.response.data)) {
-            alert(err.response.data[chave][0])
-          }
-          return
-        }
-
-        console.log(err)
+        console.log(err.response.data.errors)
       }
     },
   },

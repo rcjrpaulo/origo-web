@@ -26,6 +26,7 @@
           <input
             id="telefone"
             v-model="form.telefone"
+            v-mask="'(##) #########'"
             type="text"
             class="form-control"
           />
@@ -132,14 +133,7 @@ export default {
 
         this.$router.push('/clientes')
       } catch (err) {
-        if (Array.isArray(Object.keys(err.response.data))) {
-          for (const chave of Object.keys(err.response.data)) {
-            alert(err.response.data[chave][0])
-          }
-          return
-        }
-
-        console.log(err)
+        console.log(err.response.data.errors)
       }
     },
     async fetchPlanos() {

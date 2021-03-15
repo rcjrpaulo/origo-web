@@ -35,7 +35,7 @@
                   </NuxtLink>
 
                   <span
-                    v-if="cliente.can_be_deleted"
+                    v-if="cliente.pode_deletar"
                     class="btn btn-danger"
                     @click="deleteUser(cliente.id)"
                   >
