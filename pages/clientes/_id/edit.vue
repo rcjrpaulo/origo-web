@@ -2,96 +2,105 @@
   <div class="container">
     <div class="card mt-3">
       <div class="card-header">Editar cliente</div>
-      <div v-if="cliente" class="card-body">
-        <div class="my-2">
-          <label for="nome">Nome</label>
-          <input
-            id="nome"
-            v-model="cliente.nome"
-            type="text"
-            class="form-control"
-          />
-        </div>
-        <div class="my-2">
-          <label for="email">Email</label>
-          <input
-            id="email"
-            v-model="cliente.email"
-            type="email"
-            class="form-control"
-          />
-        </div>
-        <div class="my-2">
-          <label for="telefone">Telefone</label>
-          <input
-            id="telefone"
-            v-model="cliente.telefone"
-            v-mask="'(##) #########'"
-            type="text"
-            class="form-control"
-          />
-        </div>
-        <div class="my-2">
-          <label for="estado">Estado</label>
-          <select
-            id="estado"
-            v-model="estadoSelecionado"
-            name="estado"
-            class="form-control"
-            @change="fetchCidades"
-          >
-            <option
-              v-for="estado in estados"
-              :key="estado.id"
-              :value="estado.id"
+      <form action="#" @submit.prevent="atualizarCliente">
+        <div v-if="cliente" class="card-body">
+          <div class="my-2">
+            <label for="nome">Nome</label>
+            <input
+              id="nome"
+              v-model="cliente.nome"
+              required="required"
+              type="text"
+              class="form-control"
+            />
+          </div>
+          <div class="my-2">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              v-model="cliente.email"
+              required="required"
+              type="email"
+              class="form-control"
+            />
+          </div>
+          <div class="my-2">
+            <label for="telefone">Telefone</label>
+            <input
+              id="telefone"
+              v-model="cliente.telefone"
+              v-mask="'(##) #########'"
+              required="required"
+              type="text"
+              class="form-control"
+            />
+          </div>
+          <div class="my-2">
+            <label for="estado">Estado</label>
+            <select
+              id="estado"
+              v-model="estadoSelecionado"
+              required="required"
+              name="estado"
+              class="form-control"
+              @change="fetchCidades"
             >
-              {{ estado.nome }}
-            </option>
-          </select>
-        </div>
-        <div class="my-2">
-          <label for="cidade">Cidade</label>
-          <select
-            id="cidade"
-            v-model="cliente.cidade"
-            name="cidade"
-            class="form-control"
-          >
-            <option
-              v-for="cidade in cidades"
-              :key="cidade.id"
-              :value="cidade.nome"
+              <option
+                v-for="estado in estados"
+                :key="estado.id"
+                :value="estado.id"
+              >
+                {{ estado.nome }}
+              </option>
+            </select>
+          </div>
+          <div class="my-2">
+            <label for="cidade">Cidade</label>
+            <select
+              id="cidade"
+              v-model="cliente.cidade"
+              required="required"
+              name="cidade"
+              class="form-control"
             >
-              {{ cidade.nome }}
-            </option>
-          </select>
-        </div>
-        <div class="my-2">
-          <label for="data_de_nascimento">Data de Nascimento</label>
-          <input
-            id="data_de_nascimento"
-            v-model="cliente.data_de_nascimento"
-            type="date"
-            class="form-control"
-          />
-        </div>
-        <div class="my-2">
-          <label for="planos">Planos</label>
-          <multiselect
-            id="planos"
-            v-model="cliente.planos"
-            track-by="nome"
-            label="nome"
-            :multiple="true"
-            :options="planos"
-          ></multiselect>
-        </div>
+              <option
+                v-for="cidade in cidades"
+                :key="cidade.id"
+                :value="cidade.nome"
+              >
+                {{ cidade.nome }}
+              </option>
+            </select>
+          </div>
+          <div class="my-2">
+            <label for="data_de_nascimento">Data de Nascimento</label>
+            <input
+              id="data_de_nascimento"
+              v-model="cliente.data_de_nascimento"
+              required="required"
+              type="date"
+              class="form-control"
+            />
+          </div>
+          <div class="my-2">
+            <label for="planos">Planos</label>
+            <multiselect
+              id="planos"
+              v-model="cliente.planos"
+              required="required"
+              track-by="nome"
+              label="nome"
+              :multiple="true"
+              :options="planos"
+            ></multiselect>
+          </div>
 
-        <div class="my-2">
-          <NuxtLink class="btn btn-primary" to="/clientes">Voltar</NuxtLink>
-          <span class="btn btn-success" @click="atualizarCliente">Salvar</span>
+          <div class="my-2">
+            <NuxtLink class="btn btn-primary" to="/clientes">Voltar</NuxtLink>
+            <button type="submit" class="btn btn-success">Salvar</button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </template>
