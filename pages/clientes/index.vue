@@ -89,7 +89,11 @@ export default {
         await this.$axios.delete(`/clientes/${id}`)
         await this.fetchClientes()
       } catch (err) {
-        console.log(err)
+        if (err.response.data.errors && err.response.data.errors.length) {
+          for (const error of err.response.data.errors) {
+            this.$swal.fire('Erro !', error, 'error')
+          }
+        }
       }
     },
   },

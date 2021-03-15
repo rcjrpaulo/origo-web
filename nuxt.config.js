@@ -18,6 +18,11 @@ export default {
       {
         rel: 'stylesheet',
         type: 'text/css',
+        href: '/css/vue-multiselect.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
         href:
           'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css',
       },
@@ -34,7 +39,11 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~/plugins/v-mask.js', ssr: false }],
+  plugins: [
+    { src: '~/plugins/v-mask.js', ssr: false },
+    { src: '~/plugins/sweetalert.js', ssr: false },
+    { src: '~/plugins/vue-multiselect.js', ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

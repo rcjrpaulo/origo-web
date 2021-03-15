@@ -110,7 +110,11 @@ export default {
 
         this.cliente = response.data.data
       } catch (err) {
-        console.log(err.response.data.errors)
+        if (err.response.data.errors && err.response.data.errors.length) {
+          for (const error of err.response.data.errors) {
+            this.$swal.fire('Erro !', error, 'error')
+          }
+        }
       }
     },
   },

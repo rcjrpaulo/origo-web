@@ -126,7 +126,11 @@ export default {
 
         this.$router.push('/clientes')
       } catch (err) {
-        console.log(err.response.data.errors)
+        if (err.response.data.errors && err.response.data.errors.length) {
+          for (const error of err.response.data.errors) {
+            this.$swal.fire('Erro !', error, 'error')
+          }
+        }
       }
     },
     async fetchCliente() {
@@ -140,31 +144,51 @@ export default {
         this.cliente.planosSelect = this.cliente.planos.map((plano) => plano.id)
 
         this.fetchEstados()
-      } catch (err) {
-        console.log(err)
+      } catch (error) {
+        this.$swal.fire('Erro !', error, 'error')
       }
     },
     async fetchPlanos() {
-      const response = await this.$axios.get('/planos')
-      this.planos = response.data.data
+      try {
+        const response = await this.$axios.get('/planos')
+        this.planos = response.data.data
+      } catch (err) {
+        if (err.response.data.errors && err.response.data.errors.length) {
+          for (const error of err.response.data.errors) {
+            this.$swal.fire('Erro !', error, 'error')
+          }
+        }
+      }
     },
     async fetchEstados() {
-      const response = await this.$axios.$get(
-        'https://servicodados.ibge.gov.br/api/v1/localidades/estados'
-      )
-      this.estados = response
+      try {
+        const response = await this.$axios.$get(
+          'https://servicodados.ibge.gov.br/api/v1/localidades/estados'
+        )
+        this.estados = response
 
-      const estadoSelecionado = response.filter(
-        (estado) => estado.nome === this.cliente.estado
-      )
-      this.estadoSelecionado = estadoSelecionado[0].id
+        const estadoSelecionado = response.filter(
+          (estado) => estado.nome === this.cliente.estado
+        )
+        this.estadoSelecionado = estadoSelecionado[0].id
+      } catch (error) {
+        if (err.response.data.errors && err.response.data.errors.length) {
+          for (const error of err.response.data.errors) {
+            this.$swal.fire('Erro !', error, 'error')
+          }
+        }
+      }
 
       this.fetchCidades()
     },
     async fetchCidades() {
-      this.cidades = await this.$axios.$get(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${this.estadoSelecionado}/municipios`
-      )
+      try {
+        this.cidades = await this.$axios.$get(
+          `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${this.estadoSelecionado}/municipios`
+        )
+      } catch (error) {
+        this.$swal.fire('Erro !', error, 'error')
+      }
     },
   },
 }
