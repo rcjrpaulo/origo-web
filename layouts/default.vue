@@ -55,7 +55,8 @@ export default {
   methods: {
     async logout(auth) {
       await auth.logout()
-      location.reload()
+
+      this.$router.push('/login')
     },
   },
 }

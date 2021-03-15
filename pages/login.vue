@@ -38,7 +38,7 @@ export default {
           data,
         })
 
-        location.reload()
+        this.$router.push('/clientes')
       } catch (err) {
         if (err.response.data.email[0]) {
           alert(err.response.data.email[0])

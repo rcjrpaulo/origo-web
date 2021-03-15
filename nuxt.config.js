@@ -86,8 +86,13 @@ export default {
           },
         },
         // tokenRequired: true,
-        tokenType: 'Bearer',
+        // tokenType: 'Bearer',
       },
+    },
+    redirect: {
+      home: false,
+      callback: false,
+      logout: false,
     },
   },
 }
