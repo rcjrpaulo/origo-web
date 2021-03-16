@@ -149,11 +149,9 @@ export default {
 
         this.$router.push('/clientes')
       } catch (err) {
-        if (err.response.data.errors && err.response.data.errors.length) {
-          for (const error of err.response.data.errors) {
-            this.$swal.fire('Erro !', error, 'error')
-          }
-        }
+        const statusCode = err.response.status || '500'
+        const message = err.response.data.error || 'Houve um erro inesperado'
+        this.$swal.fire(`Erro ${statusCode}`, message, 'error')
       }
     },
     async fetchPlanos() {
@@ -161,11 +159,9 @@ export default {
         const response = await this.$axios.get('/planos')
         this.planos = response.data.data
       } catch (err) {
-        if (err.response.data.errors && err.response.data.errors.length) {
-          for (const error of err.response.data.errors) {
-            this.$swal.fire('Erro !', error, 'error')
-          }
-        }
+        const statusCode = err.response.status || '500'
+        const message = err.response.data.error || 'Houve um erro inesperado'
+        this.$swal.fire(`Erro ${statusCode}`, message, 'error')
       }
     },
     async fetchEstados() {
