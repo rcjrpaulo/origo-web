@@ -12,6 +12,7 @@
               required="required"
               type="text"
               class="form-control"
+              @invalid="mostraMsgDeErro('Nome obrigatório !')"
             />
           </div>
           <div class="my-2">
@@ -22,6 +23,7 @@
               required="required"
               type="email"
               class="form-control"
+              @invalid="mostraMsgDeErro('Email obrigatório !')"
             />
           </div>
           <div class="my-2">
@@ -33,6 +35,7 @@
               required="required"
               type="text"
               class="form-control"
+              @invalid="mostraMsgDeErro('Telefone obrigatório !')"
             />
           </div>
           <div class="my-2">
@@ -44,6 +47,7 @@
               name="estado"
               class="form-control"
               @change="fetchCidades"
+              @invalid="mostraMsgDeErro('Estado obrigatória !')"
             >
               <option
                 v-for="estado in estados"
@@ -62,6 +66,7 @@
               required="required"
               name="cidade"
               class="form-control"
+              @invalid="mostraMsgDeErro('Cidade obrigatória !')"
             >
               <option
                 v-for="cidade in cidades"
@@ -80,6 +85,7 @@
               required="required"
               type="date"
               class="form-control"
+              @invalid="mostraMsgDeErro('Data de Nascimento obrigatória !')"
             />
           </div>
           <div class="my-2">
@@ -181,6 +187,9 @@ export default {
       } catch (error) {
         this.$swal.fire('Erro !', error, 'error')
       }
+    },
+    mostraMsgDeErro(msg) {
+      this.$swal.fire(`Erro`, msg, 'error')
     },
   },
 }

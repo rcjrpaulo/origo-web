@@ -11,12 +11,14 @@
             type="email"
             required="required"
             class="form-control"
+            @invalid="mostraMsgDeErro('Email obrigatório !')"
           />
           <input
             v-model="password"
             type="password"
             required="required"
             class="form-control"
+            @invalid="mostraMsgDeErro('Senha obrigatória !')"
           />
 
           <button class="btn btn-primary mt-3" type="submit">
@@ -54,6 +56,9 @@ export default {
         const message = err.response.data.error || 'Houve um erro inesperado'
         this.$swal.fire(`Erro ${statusCode}`, message, 'error')
       }
+    },
+    mostraMsgDeErro(msg) {
+      this.$swal.fire(`Erro`, msg, 'error')
     },
   },
 }
