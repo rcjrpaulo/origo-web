@@ -3,14 +3,29 @@
     <div class="card mt-3">
       <div class="card-header">Registrar</div>
       <div class="card-body">
-        <form action="#">
+        <form action="#" @submit.prevent="register">
           <p class="card-text">Faça seu cadastro</p>
 
-          <input v-model="name" type="text" class="form-control" />
-          <input v-model="email" type="text" class="form-control" />
-          <input v-model="password" type="password" class="form-control" />
+          <input
+            v-model="name"
+            required="required"
+            type="text"
+            class="form-control"
+          />
+          <input
+            v-model="email"
+            required="required"
+            type="email"
+            class="form-control"
+          />
+          <input
+            v-model="password"
+            required="required"
+            type="password"
+            class="form-control"
+          />
 
-          <span class="btn btn-primary mt-3" @click="register">Cadastrar</span>
+          <button type="submit" class="btn btn-primary mt-3">Cadastrar</button>
         </form>
       </div>
     </div>

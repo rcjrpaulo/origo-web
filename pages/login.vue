@@ -6,8 +6,18 @@
         <form action="#" @submit.prevent="login">
           <p class="card-text">Entre com suas credenciais</p>
 
-          <input v-model="email" type="text" class="form-control" />
-          <input v-model="password" type="password" class="form-control" />
+          <input
+            v-model="email"
+            type="email"
+            required="required"
+            class="form-control"
+          />
+          <input
+            v-model="password"
+            type="password"
+            required="required"
+            class="form-control"
+          />
 
           <button class="btn btn-primary mt-3" type="submit">
             Fazer Login
